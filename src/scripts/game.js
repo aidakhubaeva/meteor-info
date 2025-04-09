@@ -89,14 +89,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // Анимация и движение динозавра
     function updateDino() {
         const frame = isFiring ? dinoFireFrames[currentFrame] : dinoFrames[currentFrame];
-        const { width, height } = dinoSizes[frame];
-        const dino = dinoImages[frame];
+        const base = dinoSizes[frame];
+        const baseWidth = base.width;
+        const baseHeight = base.height;
+    
+        // Масштаб только если ширина меньше 1600
+        let scale = canvas.width < 1000 ? canvas.width / 1000 : 1;
+    
+        const width = baseWidth * scale;
+        const height = baseHeight * scale;
         const halfWidth = width / 2;
     
-        // Двигаем вперёд
-        dinoX += direction * 8;
+        // Движение: шаг остаётся фиксированным
+        dinoX += direction * (8 * scale);
     
-        // Если вышли за границу — возвращаем назад и меняем направление
         if (dinoX - halfWidth <= 0) {
             dinoX = halfWidth;
             direction = 1;
@@ -105,24 +111,21 @@ document.addEventListener("DOMContentLoaded", () => {
             direction = -1;
         }
     
-        // Анимация шага
         stepCounter++;
         if (stepCounter >= 10) {
             stepCounter = 0;
             currentFrame = (currentFrame + 1) % dinoFrames.length;
         }
     
-        // Отрисовка
         ctx.save();
         if (direction === -1) {
             ctx.scale(-1, 1);
-            ctx.drawImage(dino, -dinoX - halfWidth, canvas.height - height - 20, width, height);
+            ctx.drawImage(dinoImages[frame], -dinoX - halfWidth, canvas.height - height - 20, width, height);
         } else {
-            ctx.drawImage(dino, dinoX - halfWidth, canvas.height - height - 20, width, height);
+            ctx.drawImage(dinoImages[frame], dinoX - halfWidth, canvas.height - height - 20, width, height);
         }
         ctx.restore();
     }
-
 
     // Обновление положения метеоров
     function updateMeteors() {
@@ -216,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
         canvas.style.display = 'block';
 
         const button = document.getElementById("shootButton");
-        button.textContent = "Пустить огонь";
+        button.textContent = "ОГОНЬ";
         button.onclick = null;
 
         updateGame();
@@ -225,10 +228,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Генерация метеоров
     setInterval(() => {
         if (!gameStarted || gameOver) return;
-
-        const startX = Math.random() * (canvas.width - 100);
-        const speed = 3;
-        const size = 200;
+    
+        const scale = canvas.width < 1000 ? canvas.width / 1000 : 1;
+        const speed = 3 * scale;
+        const baseSize = 200;
+        const size = baseSize * scale;
+    
+        const startX = Math.random() * (canvas.width - size);
+    
         meteors.push({
             x: startX,
             y: 0,
@@ -245,12 +252,16 @@ document.addEventListener("DOMContentLoaded", () => {
     shootButton.addEventListener("mousedown", () => {
         if (gameOver) return;
         isFiring = true;
+        const scale = canvas.width < 1000 ? canvas.width / 1000 : 1;
+        const baseSize = 100;
+        const size = baseSize * scale;
+        
         fireballs.push({
-            x: dinoX + (direction === 1 ? 100 : -100),
-            y: canvas.height - 400,
-            vx: direction === 1 ? 15 : -15,
-            vy: -5,
-            size: 100,
+            x: dinoX + (direction === 1 ? size : -size),
+            y: canvas.height - (size * 4),
+            vx: direction === 1 ? 15 * scale : -15 * scale,
+            vy: -5 * scale,
+            size,
             flip: direction !== 1
         });
     });
@@ -260,13 +271,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Начало игры
-    shootButton.textContent = "ИГРАТЬ";
-    shootButton.onclick = () => {
-        shootButton.textContent = "ОГОНЬ";
-        shootButton.onclick = null;
-        gameStarted = true;
-        gameCanvasWrapper.style.setProperty('--game-bg', 'url(../../public/images/background_game_cover.jpg)');
-        canvas.style.display = 'block';
-        updateGame();
-    };
+    function setStartGame() {
+        shootButton.textContent = "ИГРАТЬ";
+        shootButton.onclick = () => {
+            shootButton.textContent = "ОГОНЬ";
+            shootButton.onclick = null;
+            gameStarted = true;
+            gameCanvasWrapper.style.setProperty('--game-bg', 'url(../../public/images/background_game_cover.jpg)');
+            canvas.style.display = 'block';
+            updateGame();
+        };
+    }
+
+    setStartGame();
 });

@@ -1,5 +1,6 @@
 .facts__container {
     margin: 20px auto 0;
+    display: flex;
 }
 
 .fact {
@@ -68,9 +69,11 @@
 }
 
 .facts__pagination {
-    transform: translateX(45%);
     display: flex;
-    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    z-index: 2;
 }
 
 .facts__pagination .swiper-pagination-bullet {

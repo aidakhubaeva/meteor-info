@@ -7,14 +7,19 @@
 
 .map {
     background-color: #29335b;
-    padding: 50px 10px 80px;
+    padding: 50px 10px 0px;
 }
 
 .map .section__header-title {
     color: var(--color-light);
 }
 
+#meteor_map .section__header-title::before {
+    background-color: var(--color-light);
+}
+
 .map__container {
+    margin-top: 50px;
     height: 500px;
     z-index: 1;
 }
@@ -22,7 +27,7 @@
 /* ----------- CALC ----------- */
 
 .meteor_calc {
-    padding: 80px 70px;
+    padding: 60px 30px;
     margin-bottom: 50px;
     background-color: #29335b;
     color: var(--color-light);
@@ -34,6 +39,7 @@
 }
 
 .calc_title {
+    color: var(--color-light);
     font-size: 40px;
     font-weight: 700;
 }

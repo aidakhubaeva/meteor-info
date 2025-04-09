@@ -1,3 +1,4 @@
+/* Контакты */
 .contacts {
   display: flex;
   justify-content: flex-end;
@@ -26,14 +27,34 @@
   font-size: 12px;
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 18px;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-
 .contacts__link:hover {
   color: var(--color-light);
   opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .contacts {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px 100px;
+    height: auto;
+    min-height: 100vh;
+    text-align: center;
+  }
+
+  .contacts__container {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .contacts__list {
+    justify-content: center;
+  }
 }
