@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Стили подключаются без закрывающего слэша -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+    <link rel="stylesheet" href="/index.css">
+
+    <title>Meteorit</title>
+</head>
+
+<body class="page">
+    <!-- ===== Секция: Hedear, Nav, Slogan ===== -->
+    <div class="layout">
+        <header class="header">
+            <!-- Кнопка-бургер -->
+            <input type="checkbox" id="burger-toggle" class="burger-toggle" hidden>
+            <label for="burger-toggle" class="burger-icon">
+                <span></span>
+            </label>
+
+            <nav class="header__nav">
+                <a href="#types" class="navigation__link"><span class="navigation__link-text">Виды</span></a>
+                <a href="#facts" class="navigation__link"><span class="navigation__link-text">Факты</span></a>
+                <a href="#meteor_map" class="navigation__link"><span class="navigation__link-text">Карта</span></a>
+                <a href="#museums" class="navigation__link"><span class="navigation__link-text">Музеи</span></a>
+            </nav>
+
+            <div class="header__slogan-block">
+                <h1 class="header__slogan">
+                    <span>AMATEUR</span><br>
+                    <span>BLOG</span><br>
+                    <span>METEOR-INFO</span>
+                </h1>
+            </div>
+        </header>
+        <!-- ===== Секция ===== -->
+        <main class="main">
+            <!-- ===== Секция: Poster справа прокрутка ===== -->
+            <div class="poster__right-side"></div>
+            <!-- ===== Секция ===== -->
+
+            <!-- ===== Секция: Types ===== -->
+            <section id="types" class="types section">
+                <div class="section__header">
+                    <h2 class="section__header-title">Виды</h2>
+                </div>
+                <div class="types__container">
+                    <template class="types__block-template">
+                        <div class="types__block">
+                            <div class="types__block-content">
+                                <h3 class="block__title"></h3>
+                                <p class="types__text text"></p>
+                            </div>
+                            <div class="types__feature-image">
+                                <img src="" alt="" class="types__feature-cover">
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </section>
+            <!-- ===== Секция ===== -->
+
+            <!-- ===== Секция: Facts ===== -->
+            <section id="facts" class="section">
+                <div class="section__header">
+                    <h2 class="section__header-title">Интересные факты</h2>
+                </div>
+
+                <div class="facts__container">
+                    <div class="swiper facts__swiper">
+                        <div class="swiper-wrapper facts__swiper-wrapper">
+
+                            <template class="facts__template">
+                                <div class="swiper-slide facts__slide">
+                                    <div class="fact">
+                                        <img src="" alt="" class="fact__image">
+                                        <h3 class="fact__title"></h3>
+                                        <p class="fact__text"></p>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <div class="swiper-button-prev facts__button facts__button--prev"></div>
+                        <div class="swiper-button-next facts__button facts__button--next"></div>
+                        <div class="swiper-pagination facts__pagination"></div>
+                    </div>
+                </div>
+            </section>
+            <!-- ===== Секция ===== -->
+
+            <!-- ===== Секция: History ===== -->
+            <section id="history" class="history section">
+                <div class="section__header">
+                    <h2 class="section__header-title">Метеорит, уничтоживший динозавров</h2>
+                </div>
+
+                <div class="history__container content__container">
+                    <img src="./public/images/динозавр.jpg" alt="Метеорит уничтожает динозавров" class="history__image">
+
+                    <p class="history__text text">
+                        66 миллионов лет назад гигантский астероид диаметром около 10 километров упал в районе
+                        современного
+                        полуострова Юкатан.
+                        Удар вызвал глобальную катастрофу — гигантские пожары, цунами высотой до 100 метров, выброс
+                        огромного количества пыли и серы в атмосферу.
+                        Это привело к резкому похолоданию и массовому вымиранию динозавров и множества других видов
+                        живых
+                        существ. Последствия столкновения были колоссальными: в считанные часы начались масштабные
+                        пожары,
+                        охватившие
+                        целые
+                        континенты. Поднявшиеся облака пепла и дыма заслонили Солнце, вызвав так называемую «импактную
+                        зиму»
+                        — резкое
+                        и продолжительное похолодание, приведшее к разрушению экосистем. Цунами высотой до 100 метров
+                        пронеслись по
+                        океанам, уничтожая всё на своём пути. Эта глобальная катастрофа стала причиной массового
+                        вымирания,
+                        уничтожив около 75% всех живых существ на
+                        планете, включая динозавров, которые доминировали на Земле более 160 миллионов лет.
+                    </p>
+                </div>
+            </section>
+            <!-- ===== Секция ===== -->
+
+            <!-- ===== Секция: Game ===== -->
+            <section id="game" class="game section">
+                <div class="section__header">
+                    <h2 class="section__header-title game-title">Игра: Супер Рекс</h2>
+                    <p class="section__header-text game-text">измени ход истории</p>
+                </div>
+                <div class="game__canvas-container content__container">
+                    <canvas id="gameCanvas" class="game__canvas"></canvas>
+                </div>
+
+                <div class="game__button-block">
+                    <button id="shootButton" class="game__button-shoot">Огонь</button>
+                </div>
+            </section>
+            <!-- ===== Секция ===== -->
+
+            <!-- ===== Секция: Space-facts ===== -->
+            <section id="space-facts" class="space-facts section">
+                <div class="section__header">
+                    <h2 class="section__header-title">Кто есть кто в космосе</h2>
+                </div>
+
+                <div class="space-facts__container content__container">
+                    <template class="space-facts__item-template">
+                        <div class="space-facts__item">
+                            <div class="space-facts__item-content">
+                                <h3 class="space-facts__item-title"></h3>
+                                <p class="space-facts__item-text text"></p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </section>
+            <!-- ===== Секция ===== -->
+
+            <!-- ===== Секция: Map, Calc ===== -->
+            <section id="meteor_map" class="meteor_map section">
+                <div class="map">
+                    <h2 class="section__header-title">Карта падений метеоритов</h2>
+                    <div id="map" class="map__container"></div>
+                </div>
+                <div id="meteor_calc" class="meteor_calc">
+                    <h2 class="calc_title">Калькулятор удара метеорита</h2>
+                    <p class="massInput">Масса метеорита (в килограммах):</p>
+                    <input type="number" id="massInput" placeholder="Введите массу в кг..." class="input">
+                    <button id="calcButton" class="meteor__calc-button">Рассчитать</button>
+
+                    <div class="result">
+                        <p id="diameterOutput">Диаметр кратера:</p>
+                        <p id="depthOutput">Глубина кратера:</p>
+                    </div>
+
+                </div>
+            </section>
+            <!-- ===== Секция ===== -->
+
+            <!-- ===== Секция: Museums ===== -->
+            <section id="museums" class="museums section">
+                <div class="section__header">
+                    <h2 class="section__header-title">Список музеев</h2>
+                </div>
+
+                <div class="museums__layout">
+                    <aside class="museums__sidebar">
+                        <ul id="countryList" class="museums__countries text">
+                        </ul>
+                    </aside>
+
+                    <div class="museums__content">
+                        <ul id="museumList" class="museums__list">
+                            <li class="museum__item">
+                                <h3 class="museum__name text">Название музея</h3>
+                                <p class="museum__location"><span class="museum__label">Город:</span> <span
+                                        class="museum__city"></span></p>
+                                <p class="museum__note"></p>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+            <!-- ===== Секция ===== -->
+
+            <!-- ===== Footer: Contacts ===== -->
+            <footer id="contacts" class="contacts">
+                <div class="contacts__container">
+                    <h2 class="contacts__description">Написать разработчику</h2>
+                    <ul class="contacts__list text">
+                        <li><a href="mailto:aidakhubaeva@gmail.com" class="contacts__link">Email</a></li>
+                        <li><a href="https://github.com/aidakhubaeva" target="_blank" class="contacts__link">GitHub</a>
+                        </li>
+                        <li><a href="https://t.me/AidaKhubaeva" target="_blank" class="contacts__link">Telegram</a>
+                        </li>
+                    </ul>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script src="./src/scripts/index.js"></script>
+    <script src="./src/scripts//loadMuseums.js"></script>
+    <script src="./src/scripts/game.js"></script>
+</body>
+
+</html>

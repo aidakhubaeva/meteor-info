@@ -1,0 +1,62 @@
+.main {
+    background-color: var(--color-light);
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* ------- Poster----------- */
+.poster__right-side {
+    padding: 20px;
+    background-color: var(--color-dark);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.poster__right-side::before {
+    content: "meteor+it";
+    display: flex;
+    align-items: center;
+    font-size: clamp(10px, 2vw, 20px);
+    font-weight: 500;
+    margin-left: 20px;
+    letter-spacing: clamp(15px, 4vw, 50px);
+    color: var(--color-light);
+}
+
+
+/*------------ TYPES ------------*/
+
+.types__container {
+    margin-top: 30px;
+    display: grid;
+    gap: 50px;
+}
+
+.types__block {
+    display: flex;
+    gap: 100px;
+}
+
+.types__block-content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.types__feature-cover {
+    height: 100%;
+    width: 65px;
+    object-fit: cover;
+    display: block;
+    border-radius: 35px;
+}
+
+.block__title {
+    font-size: 30px;
+    font-weight: 600;
+    margin: 15px 0;
+    color: var(--color-dark);
+}

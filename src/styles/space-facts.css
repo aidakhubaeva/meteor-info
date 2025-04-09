@@ -1,0 +1,39 @@
+.space-facts {
+    display: block;
+}
+
+.space-facts__container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.space-facts__item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 30px;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.space-facts__item-content {
+    display: block;
+}
+
+.space-facts__item-title {
+    margin-bottom: 8px;
+    color: var(--color-dark);
+}
+
+.space-facts__item-text {
+    color: var(--color-dark);
+}
+
+.space-facts__item-cover {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+}

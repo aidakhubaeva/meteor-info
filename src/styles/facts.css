@@ -1,0 +1,87 @@
+.facts__container {
+    margin: 20px auto 0;
+}
+
+.fact {
+    background-color: var(--color-dark);
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    gap: 40px;
+    height: 500px;
+}
+
+.fact__image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.fact__title {
+    font-size: 1.5rem;
+    color: var(--color-light);
+}
+
+.fact__text {
+    color: var(--color-light);
+    line-height: 1.6;
+    overflow-y: auto;
+    max-height: 100%;
+    padding-right: 6px;
+}
+
+.fact__text::-webkit-scrollbar {
+    width: 4px;
+}
+
+.fact__text::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.fact__text::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.fact__text::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* SWIPER STYLES */
+.facts__swiper {
+    padding-bottom: 50px;
+    overflow: hidden;
+    position: relative;
+}
+
+.facts__slide {
+    display: flex;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.facts__button {
+    display: none;
+}
+
+.facts__pagination {
+    transform: translateX(45%);
+    display: flex;
+    gap: 8px;
+}
+
+.facts__pagination .swiper-pagination-bullet {
+    background: var(--color-dark);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.facts__pagination .swiper-pagination-bullet-active {
+    opacity: 1;
+}

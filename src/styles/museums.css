@@ -1,0 +1,71 @@
+/* .museums {
+    padding: 40px;
+} */
+
+.museums__layout {
+    margin-top: 60px;
+    display: flex;
+    align-items: flex-start;
+}
+
+/* ---------- Левая колонка: страны ---------- */
+
+.museums__sidebar {
+    border-right: 0.1px solid var(--color-dark);
+    padding-right: 20px;
+}
+
+.museums__countries {
+    list-style: none;
+}
+
+.country__item {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.country__item:hover {
+    background-color: #ddd;
+}
+
+.country__item.active {
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    font-weight: 785;
+}
+
+/* ---------- Правая колонка: список музеев ---------- */
+
+.museums__content {
+    flex-grow: 1;
+}
+
+.museums__list {
+    list-style: none;
+}
+
+.museum__item {
+    padding: 20px;
+    margin-bottom: 20px;
+    color: var(--color-dark);
+}
+
+.museum__name {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.museum__location {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.museum__label {
+    font-weight: 550;
+}
+
+.museum__note {
+    font-size: 14px;
+}

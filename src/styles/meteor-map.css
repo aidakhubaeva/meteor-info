@@ -1,0 +1,71 @@
+.meteor_map {
+    padding: 0;
+    text-align: center;
+}
+
+/* ----------- MAP ----------- */
+
+.map {
+    background-color: #29335b;
+    padding: 50px 10px 80px;
+}
+
+.map .section__header-title {
+    color: var(--color-light);
+}
+
+.map__container {
+    height: 500px;
+    z-index: 1;
+}
+
+/* ----------- CALC ----------- */
+
+.meteor_calc {
+    padding: 80px 70px;
+    margin-bottom: 50px;
+    background-color: #29335b;
+    color: var(--color-light);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+
+.calc_title {
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.meteor_calc input {
+    border-radius: 15px;
+    padding: 10px;
+    margin-top: 10px;
+    width: 100%;
+    font-size: 18px;
+    color: #333;
+    background-color: var(--color-light);
+}
+
+.meteor_calc input::placeholder {
+    color: #888;
+}
+
+.meteor__calc-button {
+    padding: 13px;
+    font-size: 16px;
+    background-color: #465387;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    margin-top: 20px;
+    font-weight: bold;
+}

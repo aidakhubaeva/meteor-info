@@ -1,0 +1,9 @@
+@import './src/styles/global.css';
+@import './src/styles//layout-header.css';
+@import './src/styles/poster-types.css';
+@import './src/styles/facts.css';
+@import './src/styles/history-game.css';
+@import './src/styles//meteor-map.css';
+@import './src/styles/museums.css';
+@import './src/styles/contacts.css';
+@import "./src/styles/space-facts.css";
