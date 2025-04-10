@@ -37,7 +37,7 @@
 
 .types__block {
     display: flex;
-    gap: 100px;
+    gap: clamp(10px, calc((100 - 10) * ((100vw - 300px) / (2500 - 300)) + 10px), 100px);
 }
 
 .types__block-content {
@@ -60,3 +60,5 @@
     margin: 15px 0;
     color: var(--color-dark);
 }
+
+@media (max-width: 650px) {}

@@ -247,15 +247,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1000);
 
     // Обработка выстрела
+
     const shootButton = document.getElementById("shootButton");
 
-    shootButton.addEventListener("mousedown", () => {
+    // Отключение зума по двойному тапу на кнопке
+    let lastTouchTime = 0;
+    shootButton.addEventListener("touchstart", (e) => {
+        const now = Date.now();
+        if (now - lastTouchTime < 300) {
+            e.preventDefault(); // отменяем масштабирование
+        }
+        lastTouchTime = now;
+    });
+    
+    // Универсальный выстрел по pointer-событию (и мышь, и палец)
+    shootButton.addEventListener("pointerdown", () => {
         if (gameOver) return;
         isFiring = true;
+    
         const scale = canvas.width < 1000 ? canvas.width / 1000 : 1;
         const baseSize = 100;
         const size = baseSize * scale;
-        
+    
         fireballs.push({
             x: dinoX + (direction === 1 ? size : -size),
             y: canvas.height - (size * 4),
@@ -264,10 +277,12 @@ document.addEventListener("DOMContentLoaded", () => {
             size,
             flip: direction !== 1
         });
+    
     });
-
-    shootButton.addEventListener("mouseup", () => {
+    
+    shootButton.addEventListener("pointerup", () => {
         isFiring = false;
+        shootButton.blur();
     });
 
     // Начало игры

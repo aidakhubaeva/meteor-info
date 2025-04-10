@@ -148,7 +148,7 @@ function initMap() {
     attribution: "&copy; OpenStreetMap contributors"
   }).addTo(map);
 
-  fetch("https://data.nasa.gov/resource/gh4g-9sfh.json?$limit=200")
+  fetch("meteorites.json")
     .then(res => res.json())
     .then(data => {
       data.forEach(meteorite => {
@@ -161,12 +161,12 @@ function initMap() {
             fillColor: "#ffaa00",
             fillOpacity: 0.8
           })
-            .bindPopup(`<strong>${meteorite.name}</strong><br>Масса: ${meteorite.mass || "?"} г<br>Год: ${meteorite.year ? meteorite.year.slice(0, 4) : "?"}`)
+            .bindPopup(`<strong>${meteorite.name}</strong><br>Масса: ${meteorite.mass || "?"} г<br>Год: ${meteorite.year || "?"}`)
             .addTo(map);
         }
       });
     })
-    .catch(err => console.error("Ошибка загрузки метеоритов с NASA:", err));
+    .catch(err => console.error("Ошибка загрузки метеоритов из локального JSON:", err));
 }
 
 // Навигация: активная ссылка

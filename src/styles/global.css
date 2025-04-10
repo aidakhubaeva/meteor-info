@@ -48,6 +48,14 @@
   background-color: var(--color-dark);
 }
 
+@media (max-width: 650px) {
+  .section {
+    padding: 0px 8px;
+    margin-bottom: 100px;
+  }
+
+}
+
 :root {
   --color-light: rgb(237, 240, 248);
   --color-dark: rgb(18, 20, 33);

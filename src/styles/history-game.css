@@ -133,3 +133,17 @@
     transform: translateY(1px);
     box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
 }
+
+.game__button-shoot:focus {
+    outline: none;
+    background: linear-gradient(to bottom right, #3dfd5d, #006622);
+}
+
+@media (hover: none) {
+
+    /* отключаем наведение (hover) на устройствах без мыши — мобилки и планшеты */
+    .game__button-shoot:hover {
+        background: linear-gradient(to bottom right, #3dfd5d, #006622);
+        box-shadow: 4px 6px 12px rgb(0, 38, 7);
+    }
+}
