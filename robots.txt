@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://aidakhubaeva.github.io/meteor-info/sitemap.xml
