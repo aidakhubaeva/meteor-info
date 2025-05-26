@@ -1,68 +1,26 @@
-
+// Главный запуск после загрузки DOM
 document.addEventListener("DOMContentLoaded", () => {
-  console.log(`
-  ===============================
-  Welcome, space explorer!
-  Especially meteorite lover.
-  
-  Got ideas or feedback?
-  Message me on Telegram → @AidaKhubaeva
-  ===============================
-  `);
-
-  loadData();
   setupNavigationHighlighting();
-  setupCraterCalculator();
-  initMap();
+
+  setTimeout(loadTypes, 0);
+  setTimeout(loadFacts, 300);
+  setTimeout(loadSpaceFacts, 600);
+
+  // Ждём полной отрисовки, потом запускаем карту
+  requestAnimationFrame(() => {
+    initMap();
+  });
 });
 
-// Загрузка и отрисовка данных
-function loadData() {
-  fetch("/data.json")
-    .then(response => response.json())
-    .then(data => {
-      if (Array.isArray(data.types)) {
-        try {
-          renderTypes(data.types);
-        } catch (err) {
-          console.error("Failed to render TYPES:", err);
-        }
-      }
-
-      if (Array.isArray(data.spaceFacts)) {
-        try {
-          renderSpaceFacts(data.spaceFacts);
-        } catch (err) {
-          console.error("Failed to render SPACE FACTS:", err);
-        }
-      }
-
-      if (Array.isArray(data.facts)) {
-        try {
-          renderFacts(data.facts);
-        } catch (err) {
-          console.error("Failed to render FACTS:", err);
-        }
-      }
-    })
-    .catch(error => console.error("Failed to load data.json:", error));
-}
-
-// Универсальный рендер шаблона
-function renderTemplate(containerSelector, templateSelector, items, renderCallback) {
-  const container = document.querySelector(containerSelector);
-  const template = document.querySelector(templateSelector);
-  if (!container || !template) return;
-
-  container.innerHTML = "";
-  items.forEach(item => {
-    const clone = template.content.cloneNode(true);
-    renderCallback(clone, item);
-    container.appendChild(clone);
-  });
-}
-
 // TYPES
+function loadTypes() {
+  fetch("/data.json")
+    .then(res => res.json())
+    .then(data => {
+      if (Array.isArray(data.types)) renderTypes(data.types);
+    });
+}
+
 function renderTypes(types) {
   renderTemplate(".types__container", ".types__block-template", types, (clone, type) => {
     const block = clone.querySelector(".types__block");
@@ -70,30 +28,23 @@ function renderTypes(types) {
 
     block.querySelector(".block__title").textContent = type.title;
     block.querySelector(".types__text").textContent = type.description;
-
     const img = block.querySelector(".types__feature-cover");
     if (img) {
       img.src = type.image;
       img.alt = type.title;
-    } else {
-      const imageWrapper = block.querySelector(".types__feature-image");
-      if (imageWrapper) imageWrapper.remove();
     }
   });
 }
 
-// SPACE FACTS
-function renderSpaceFacts(facts) {
-  renderTemplate(".space-facts__container", ".space-facts__item-template", facts, (clone, fact) => {
-    const block = clone.querySelector(".space-facts__item");
-    if (!block) return;
-
-    block.querySelector(".space-facts__item-title").textContent = fact.title;
-    block.querySelector(".space-facts__item-text").textContent = fact.text;
-  });
+// FACTS
+function loadFacts() {
+  fetch("/data.json")
+    .then(res => res.json())
+    .then(data => {
+      if (Array.isArray(data.facts)) renderFacts(data.facts);
+    });
 }
 
-// FACTS
 function renderFacts(facts) {
   renderTemplate(".facts__swiper-wrapper", ".facts__template", facts, (clone, fact) => {
     const slide = clone.querySelector(".facts__slide");
@@ -122,6 +73,37 @@ function renderFacts(facts) {
   });
 }
 
+// SPACE FACTS
+function loadSpaceFacts() {
+  fetch("/data.json")
+    .then(res => res.json())
+    .then(data => {
+      if (Array.isArray(data.spaceFacts)) renderSpaceFacts(data.spaceFacts);
+    });
+}
+
+function renderSpaceFacts(facts) {
+  renderTemplate(".space-facts__container", ".space-facts__item-template", facts, (clone, fact) => {
+    const block = clone.querySelector(".space-facts__item");
+    block.querySelector(".space-facts__item-title").textContent = fact.title;
+    block.querySelector(".space-facts__item-text").textContent = fact.text;
+  });
+}
+
+// Универсальный рендер
+function renderTemplate(containerSelector, templateSelector, items, renderCallback) {
+  const container = document.querySelector(containerSelector);
+  const template = document.querySelector(templateSelector);
+  if (!container || !template) return;
+
+  container.innerHTML = "";
+  items.forEach(item => {
+    const clone = template.content.cloneNode(true);
+    renderCallback(clone, item);
+    container.appendChild(clone);
+  });
+}
+
 // Калькулятор кратера
 function setupCraterCalculator() {
   document.getElementById("calcButton").addEventListener("click", () => {
@@ -130,46 +112,81 @@ function setupCraterCalculator() {
       alert("Введите корректную массу метеорита.");
       return;
     }
-
     const massTonnes = massKg / 1000;
     const diameter = (massTonnes ** 0.33 * 10).toFixed(2);
     const depth = (diameter * 0.25).toFixed(2);
-
     document.getElementById("diameterOutput").textContent = `Диаметр кратера: ${diameter} м`;
     document.getElementById("depthOutput").textContent = `Глубина кратера: ${depth} м`;
   });
 }
 
-// Карта метеоритов
+// ======= Карта =======
+let map;
+let meteoriteLayer;
+const shownMeteorites = new Set();
+
 function initMap() {
-  const map = L.map("map").setView([20, 0], 2);
+  map = L.map("map", {
+    center: [20, 0],
+    zoom: 2,
+    minZoom: 1,
+    maxZoom: 8,
+    worldCopyJump: false,
+    maxBounds: [
+      [-85, -180],
+      [85, 180]
+    ],
+    maxBoundsViscosity: 1
+  });
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "&copy; OpenStreetMap contributors"
+    attribution: "&copy; OpenStreetMap contributors",
+    noWrap: true 
   }).addTo(map);
 
+  meteoriteLayer = L.layerGroup().addTo(map);
+
+  loadInitialMeteorites();
+}
+
+function loadInitialMeteorites() {
   fetch("meteorites.json")
     .then(res => res.json())
     .then(data => {
-      data.forEach(meteorite => {
-        const lat = parseFloat(meteorite.reclat);
-        const lon = parseFloat(meteorite.reclong);
-        if (!isNaN(lat) && !isNaN(lon)) {
-          L.circleMarker([lat, lon], {
-            radius: 6,
-            color: "#ffcc00",
-            fillColor: "#ffaa00",
-            fillOpacity: 0.8
-          })
-            .bindPopup(`<strong>${meteorite.name}</strong><br>Масса: ${meteorite.mass || "?"} г<br>Год: ${meteorite.year || "?"}`)
-            .addTo(map);
-        }
-      });
+      const initialSubset = data;
+      renderMeteorites(initialSubset);
     })
-    .catch(err => console.error("Ошибка загрузки метеоритов из локального JSON:", err));
+    .catch(err => console.error("Ошибка загрузки метеоритов:", err));
 }
 
-// Навигация: активная ссылка
+function renderMeteorites(meteorites) {
+  if (!Array.isArray(meteorites)) return;
+
+  const renderer = L.canvas();
+
+  meteorites.forEach(meteorite => {
+    const { id, name, reclat, reclong, mass } = meteorite;
+
+    if (!reclat || !reclong || shownMeteorites.has(id)) return;
+    shownMeteorites.add(id);
+
+    const marker = L.circleMarker([+reclat, +reclong], {
+      radius: 4,          
+      color: "#ff5722",
+      fillColor: "#ff5722",
+      fillOpacity: 0.7,
+      weight: 1,
+      renderer     
+    }).bindPopup(`
+      <strong>${name || "Без названия"}</strong><br>
+      Масса: ${mass ? mass + " г" : "неизвестна"}
+    `);
+
+    meteoriteLayer.addLayer(marker);
+  });
+}
+
+// ======= Навигация =======
 function setupNavigationHighlighting() {
   const nav = document.querySelector(".header__nav");
   const links = nav.querySelectorAll(".navigation__link");
