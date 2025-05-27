@@ -1,9 +1,12 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const canvas = document.getElementById("gameCanvas");
-    const ctx = canvas.getContext("2d");
-    const gameCanvasWrapper = document.querySelector(".game__canvas-container");
 
-    gameCanvasWrapper.style.setProperty('--game-bg', 'url(../../public/images/game_play.jpg)');
+export function initGame() {
+  const canvas = document.getElementById("gameCanvas");
+  const ctx = canvas.getContext("2d");
+  const gameCanvasWrapper = document.querySelector(".game__canvas-container");
+
+  if (!canvas || !ctx || !gameCanvasWrapper) return;
+
+  gameCanvasWrapper.style.setProperty('--game-bg', 'url(/public/images/game_play.jpg)');
 
     // Состояние игры
     let gameStarted = false;
@@ -25,15 +28,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Размеры кадров динозавра
     const dinoSizes = {
-        "../public/images/dino-step-one.png": { width: 300, height: 270 },
-        "../public/images/dino-step-second.png": { width: 300, height: 270 },
-        "../public/images/dino-step-one-fire.png": { width: 300, height: 320 },
-        "../public/images/dino-step-second-fire.png": { width: 300, height: 320 },
+                        "/public/images/dino-step-one.png": { width: 300, height: 270 },
+                        "/public/images/dino-step-second.png": { width: 300, height: 270 },
+                        "/public/images/dino-step-one-fire.png": { width: 300, height: 320 },
+                        "/public/images/dino-step-second-fire.png": { width: 300, height: 320 },
     };
 
     // Изображения
-    const dinoFrames = ["../public/images/dino-step-one.png", "../public/images/dino-step-second.png"];
-    const dinoFireFrames = ["../public/images/dino-step-one-fire.png", "../public/images/dino-step-second-fire.png"];
+    const dinoFrames = ["/public/images/dino-step-one.png", "/public/images/dino-step-second.png"];
+    const dinoFireFrames = ["/public/images/dino-step-one-fire.png", "/public/images/dino-step-second-fire.png"];
     const dinoImages = {};
     [...dinoFrames, ...dinoFireFrames].forEach(src => {
         const img = new Image();
@@ -42,13 +45,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const meteor = new Image();
-    meteor.src = "../public/images/meteor.png";
+    meteor.src = "/public/images/meteor.png";
 
     const fireball = new Image();
-    fireball.src = "../public/images/fireball.png";
+    fireball.src = "/public/images/fireball.png";
 
     const gameOverImage = new Image();
-    gameOverImage.src = "../public/images/game_over.jpg";
+    gameOverImage.src = "/public/images/game_over.jpg";
 
     // Подгоняем canvas под размер контейнера
     function resizeCanvas() {
@@ -197,8 +200,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Показ баннера окончания игры
     function showGameOverBanner() {
-        gameCanvasWrapper.style.setProperty('--game-bg', 'url(../../public/images/game_over.jpg)');
+        gameCanvasWrapper.style.setProperty('--game-bg', 'url(/public/images/game_over.jpg)');
         canvas.style.display = 'none';
+
         const button = document.getElementById("shootButton");
         button.textContent = "Играть";
         button.onclick = restartGame;
@@ -215,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
         fading = false;
         alpha = 0;
 
-        gameCanvasWrapper.style.setProperty('--game-bg', 'url(../../public/images/background_game_cover.jpg)');
+        gameCanvasWrapper.style.setProperty('--game-bg', 'url(/public/images/background_game_cover.jpg)');
         canvas.style.display = 'block';
 
         const button = document.getElementById("shootButton");
@@ -237,12 +241,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const startX = Math.random() * (canvas.width - size);
     
         meteors.push({
-            x: startX,
-            y: 0,
-            vx: direction === 1 ? -speed : speed,
-            vy: speed,
-            size,
-            flip: direction !== 1
+                        x: startX,
+                        y: 0,
+                        vx: direction === 1 ? -speed : speed,
+                        vy: speed,
+                        size,
+                        flip: direction !== 1
         });
     }, 1000);
 
@@ -270,13 +274,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const size = baseSize * scale;
     
         fireballs.push({
-            x: dinoX + (direction === 1 ? size : -size),
-            y: canvas.height - (size * 4),
-            vx: direction === 1 ? 15 * scale : -15 * scale,
-            vy: -5 * scale,
-            size,
-            flip: direction !== 1
-        });
+                        x: dinoX + (direction === 1 ? size : -size),
+                        y: canvas.height - (size * 4),
+                        vx: direction === 1 ? 15 * scale : -15 * scale,
+                        vy: -5 * scale,
+                        size,
+                        flip: direction !== 1
+                    });
     
     });
     
@@ -289,14 +293,14 @@ document.addEventListener("DOMContentLoaded", () => {
     function setStartGame() {
         shootButton.textContent = "ИГРАТЬ";
         shootButton.onclick = () => {
-            shootButton.textContent = "ОГОНЬ";
-            shootButton.onclick = null;
-            gameStarted = true;
-            gameCanvasWrapper.style.setProperty('--game-bg', 'url(../../public/images/background_game_cover.jpg)');
-            canvas.style.display = 'block';
-            updateGame();
-        };
+                                    shootButton.textContent = "ОГОНЬ";
+                                    shootButton.onclick = null;
+                                    gameStarted = true;
+                                    gameCanvasWrapper.style.setProperty('--game-bg', 'url(/public/images/background_game_cover.jpg)');
+                                    canvas.style.display = 'block';
+                                    updateGame();
+                                    };
     }
 
     setStartGame();
-});
+};

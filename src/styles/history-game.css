@@ -35,7 +35,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-image: url(../../public/images/background_section_block_game.jpg);
+    background-image: url(/public/images/background_section_block_game.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -73,7 +73,7 @@
 
 /* Обёртка: фон, тень, бордер */
 .game__canvas-container {
-    --game-bg: url(../../public/images/background_game_cover.jpg);
+    --game-bg: url(/public/images/background_game_cover.jpg);
     background-image: var(--game-bg);
     background-size: cover;
     background-position: center;
