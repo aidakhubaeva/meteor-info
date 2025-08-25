@@ -12,7 +12,7 @@
 
 .museums__sidebar {
     border-right: 0.1px solid var(--color-dark);
-    padding-right: 20px;
+    width: 150px;
 }
 
 .museums__countries {
@@ -30,6 +30,7 @@
 }
 
 .country__item.active {
+    width: 95%;
     background-color: var(--color-dark);
     color: var(--color-light);
     font-weight: 785;
