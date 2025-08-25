@@ -299,8 +299,9 @@ export function initGame() {
                                     gameCanvasWrapper.style.setProperty('--game-bg', 'url(/public/images/background_game_cover.jpg)');
                                     canvas.style.display = 'block';
                                     updateGame();
+                                    window.analytics?.goal('game_open');
                                     };
-    }
+    };
 
     setStartGame();
 };

@@ -7,6 +7,7 @@ import { initMap } from "./blocks/map.js";
 import { setupCraterCalculator } from "./blocks/calculator.js";
 import { initGame } from "./blocks/game.js";
 import { loadMuseums } from "./blocks/loadMuseums.js";
+import './analytics.js';
 
 // ===== Запуск при загрузке страницы =====
 document.addEventListener("DOMContentLoaded", () => {
